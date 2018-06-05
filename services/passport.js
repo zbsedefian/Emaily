@@ -41,7 +41,8 @@ passport.use(
     {
         clientID: keys.googleClientID,
         clientSecret: keys.googleClientSecret,
-        callbackURL: '/auth/google/callback'
+        callbackURL: '/auth/google/callback',
+        proxy: true // tells it to trust heroku proxy so that https works
     },
     (accessToken, refreshToken, profile, done) => {
         User.findOne({ googleID: profile.id})
@@ -63,6 +64,7 @@ passport.use(
     clientID: keys.linkedInClientID,
     clientSecret: keys.linkedInClientSecret,
     callbackURL: '/auth/linkedin/callback',
+    proxy: true, // tells it to trust heroku proxy so that https works
     scope: ['r_emailaddress', 'r_basicprofile'],
     }, 
     (accessToken, refreshToken, profile, done) => {
