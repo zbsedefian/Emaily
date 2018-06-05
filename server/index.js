@@ -18,6 +18,8 @@ const app = express()
     That data is passed on to passport which pulls user id out of cookie data.
     The id is then passed to deserializeUser() which turns it into a User model instance
     Finally, the User model instance is added to req object as 'req.user'
+
+    app.use() wires up middleware
 */
 app.use(
     cookieSession({
