@@ -44,16 +44,12 @@ passport.use(
         callbackURL: '/auth/google/callback',
         proxy: true // tells it to trust heroku proxy so that https works
     },
-    (accessToken, refreshToken, profile, done) => {
-        User.findOne({ googleID: profile.id})
-            .then((existingUser) => {
-                if (!existingUser)
-                    new User({ googleID: profile.id })
-                        .save()
-                        .then(user => done(null, user))
-                else 
-                    done(null, existingUser)
-            })
+    async (accessToken, refreshToken, profile, done) => {
+        const existingUser = await User.findOne({ googleID: profile.id})   
+        if (existingUser)
+            return done(null, existingUser)
+        const user = await new User({ googleID: profile.id }).save()
+        done(null, user)
     })
 )
 
@@ -61,20 +57,16 @@ passport.use(
 passport.use(
     new LinkedInStrategy(
     {
-    clientID: keys.linkedInClientID,
-    clientSecret: keys.linkedInClientSecret,
-    callbackURL: '/auth/linkedin/callback',
-    proxy: true, // tells it to trust heroku proxy so that https works
-    scope: ['r_emailaddress', 'r_basicprofile'],
+        clientID: keys.linkedInClientID,
+        clientSecret: keys.linkedInClientSecret,
+        callbackURL: '/auth/linkedin/callback',
+        proxy: true, // tells it to trust heroku proxy so that https works
+        scope: ['r_emailaddress', 'r_basicprofile'],
     }, 
-    (accessToken, refreshToken, profile, done) => {
-        User.findOne({ linkedInID: profile.id })
-            .then((existingUser) => {
-            if (!existingUser)
-                new User({ linkedInID: profile.id })
-                    .save()
-                    .then(user => done(null, user))
-            else 
-                done(null, existingUser)
-        })
+    async (accessToken, refreshToken, profile, done) => {
+        const existingUser = await User.findOne({ linkedInID: profile.id })
+        if (existingUser)
+            return done(null, existingUser)
+        const user = await new User({ linkedInID: profile.id }).save()
+        done(null, user)
 }))
