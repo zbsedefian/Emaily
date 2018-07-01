@@ -9,7 +9,8 @@ const { Schema } = mongoose //const Schema = mongoose.Schema  uncommented is des
 
 const userSchema = new Schema({
     googleID: String,
-    linkedInID: String
+    linkedInID: String,
+    credits: {type: Number, default: 0}
 })
 
 // Sets the schema to the mongoose model 'users'

@@ -11,14 +11,17 @@ class Header extends Component {
             case false:
                 return (
                     <React.Fragment>
-                    <li><a href="/auth/google">Login with Google</a></li>,
+                    <li><a href="/auth/google">Login with Google</a></li>
                     <li><a href="/auth/linkedin">Login with Linkedin</a></li>
                     </React.Fragment>
                 )
             default:
                 return (
                     <React.Fragment>
-                    <li><Payments /></li>,
+                    <li><Payments /></li>
+                    <li style={{margin: '0 10px'}}>
+                        Credits: { this.props.auth.credits }
+                    </li>
                     <li><a href="/api/logout">Logout</a></li>
                     </React.Fragment>
                 )
