@@ -46,6 +46,18 @@ require('./routes/authRoutes')(app)
 // Billing route
 require('./routes/billingRoutes')(app)
 
+// Following block says that if nothing inside authRoutes, or billingRoutes, then just give back index.html
+if (process.env.NODE_ENV === 'production') {
+    // Express will serve up production assets like main.js, main.css
+    app.use(express.static('client/build'))
+    
+    // Express will serve index.html if route not recognized
+    const path = require('path')
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
+
 // Dynamic port binding
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Listening at port ${PORT}`))
