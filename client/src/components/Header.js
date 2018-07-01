@@ -9,15 +9,19 @@ class Header extends Component {
             case null:
                 return;
             case false:
-                return [
+                return (
+                    <React.Fragment>
                     <li><a href="/auth/google">Login with Google</a></li>,
                     <li><a href="/auth/linkedin">Login with Linkedin</a></li>
-                ]
+                    </React.Fragment>
+                )
             default:
-                return [
+                return (
+                    <React.Fragment>
                     <li><Payments /></li>,
                     <li><a href="/api/logout">Logout</a></li>
-                ]
+                    </React.Fragment>
+                )
         }
     }
     render() {

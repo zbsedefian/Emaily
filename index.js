@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
+const bodyParser = require('body-parser')
 const keys = require('./config/keys')
 require('./models/User')
 require('./services/passport')
@@ -11,6 +12,10 @@ require('./services/passport')
 mongoose.connect(keys.mongoURI)
 
 const app = express()
+
+// Parse anything with request body and assign it to req.body property of incoming request object
+app.use(bodyParser.json())
+
 
 /*
     Enable the app to use cookies.
@@ -37,6 +42,9 @@ app.use(passport.session())
     authorizationFunction(app)
 */
 require('./routes/authRoutes')(app)
+
+// Billing route
+require('./routes/billingRoutes')(app)
 
 // Dynamic port binding
 const PORT = process.env.PORT || 5000
