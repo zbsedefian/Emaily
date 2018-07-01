@@ -1,1 +1,7 @@
 https://www.udemy.com/node-with-react-fullstack-web-development
+
+Note to future self if cloning to new machine:
+
+1. Install all dependencies and packages, found in package.json
+2. Add config/dev.js for local keys. Find at oauth sites and mlab. Cookie key is random text.
+3. I think that's about it.
