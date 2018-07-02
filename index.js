@@ -47,6 +47,8 @@ require('./routes/authRoutes')(app)
 // Billing route
 require('./routes/billingRoutes')(app)
 
+require('./routes/surveyRoutes')(app)
+
 // Following block says that if nothing inside authRoutes, or billingRoutes, then just give back index.html
 if (process.env.NODE_ENV === 'production') {
     // Express will serve up production assets like main.js, main.css
