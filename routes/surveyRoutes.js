@@ -28,11 +28,9 @@ module.exports = (app) => {
         const mailer = new Mailer(survey, surveyTemplate(survey))
         try {
             await mailer.send()
-            
             await survey.save()
-            req.user.credit--
+            req.user.credits--
             const user = await req.user.save()
-
             res.send(user)
         } catch (err) {
             res.status(422).send(err)
